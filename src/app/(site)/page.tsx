@@ -1,6 +1,9 @@
 import Image from "next/image";
+import AuthForm from "@/app/(site)/AuthForm";
 
 export default function Home() {
+  // TODO: 인증 상태에 따라 로그인/회원가입 페이지를 보여주거나, 메인 페이지로 이동시키기
+
   return (
     <main
       className={`flex min-h-full flex-col justify-center bg-gray-100 py-12 sm:px-6 lg:px-8`}
@@ -19,7 +22,7 @@ export default function Home() {
           로그인 후 이용해주세요.
         </h2>
       </div>
-      {/*  Auth Form Component  */}
+      <AuthForm />
     </main>
   );
 }

@@ -1,7 +1,11 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Nanum_Gothic } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const NanumGothic = Nanum_Gothic({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-nanum-gothic",
+});
 
 export const metadata = {
   title: "Next Messenger",
@@ -14,8 +18,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko">
-      <body className={inter.className}>{children}</body>
+    <html lang="ko" className={`scroll-smooth antialiased`}>
+      {/* TODO: 폰트 로드 문제 있음.......*/}
+      {/*<body className={`font-nanum-gothic ${NanumGothic.className}`}>*/}
+      <body className={``}>{children}</body>
     </html>
   );
 }
