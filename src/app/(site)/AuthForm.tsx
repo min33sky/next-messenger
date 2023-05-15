@@ -8,18 +8,22 @@ import Input from "@/components/Input";
 import AuthSocialButton from "@/app/(site)/AuthSocialButton";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import Button from "@/components/Button";
+import axios from "axios";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type Variant = "Login" | "Register";
 
 const authSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6).max(16),
-  name: z.string().min(4), // only for register
+  name: z.string().min(4), //? only for register
 });
 
 type AuthSchema = z.infer<typeof authSchema>;
 
 export default function AuthForm() {
+  const router = useRouter();
   const [variant, setVariant] = useState<Variant>("Login");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -47,7 +51,23 @@ export default function AuthForm() {
 
       try {
         if (variant === "Register") {
-          console.log("Register: ", data);
+          // 회원가입 요청
+          await axios.post(`/api/register`, data);
+
+          // 로그인 요청
+          const res = await signIn("credentials", {
+            email: data.email,
+            password: data.password,
+            redirect: false,
+          });
+
+          if (res?.error) {
+            alert(res.error);
+          }
+
+          if (res?.ok) {
+            router.push(`/conversations`);
+          }
         } else if (variant === "Login") {
           console.log("Login: ", data);
         }
@@ -57,7 +77,7 @@ export default function AuthForm() {
         setIsLoading(false);
       }
     },
-    [variant]
+    [router, variant]
   );
 
   const socialAction = useCallback((action: "google" | "github") => {
