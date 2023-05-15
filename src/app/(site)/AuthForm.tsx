@@ -11,6 +11,7 @@ import Button from "@/components/Button";
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 type Variant = "Login" | "Register";
 
@@ -45,11 +46,9 @@ export default function AuthForm() {
 
   const onSubmit: SubmitHandler<AuthSchema> = useCallback(
     async (data) => {
-      setIsLoading(true);
-
-      alert(`${variant} 요청`);
-
       try {
+        setIsLoading(true);
+
         if (variant === "Register") {
           // 회원가입 요청
           await axios.post(`/api/register`, data);
@@ -69,10 +68,25 @@ export default function AuthForm() {
             router.push(`/conversations`);
           }
         } else if (variant === "Login") {
-          console.log("Login: ", data);
+          // 로그인 요청
+          const res = await signIn("credentials", {
+            email: data.email,
+            password: data.password,
+            redirect: false,
+          });
+
+          if (res?.error) {
+            toast.error("로그인에 실패했습니다. 다시 시도해주세요.");
+          }
+
+          if (res?.ok) {
+            router.push(`/conversations`);
+          }
         }
-      } catch (error) {
-        console.log("Error: ", error);
+      } catch (error: any) {
+        console.log("Error: ", error.response.data.error);
+        // TODO: 에러 처리 확실하게
+        toast.error("같은 이메일이 존재합니다.");
       } finally {
         setIsLoading(false);
       }
@@ -80,13 +94,34 @@ export default function AuthForm() {
     [router, variant]
   );
 
-  const socialAction = useCallback((action: "google" | "github") => {
-    setIsLoading(true);
+  const socialAction = useCallback(
+    async (action: "google" | "github") => {
+      try {
+        setIsLoading(true);
 
-    alert(`${action} 로그인`);
+        const res = await signIn(action, {
+          callbackUrl: "/conversations",
+        });
 
-    //   TODO: 소셜 로그인 구현하기
-  }, []);
+        // TODO: 아래 코드 필요 없는듯???????????????????????????????????????????????????????????
+
+        console.log("소셜 로그인 결과: ", res);
+
+        if (res?.error) {
+          toast.error("로그인에 실패했습니다. 다시 시도해주세요.");
+        }
+
+        if (res?.ok) {
+          router.push(`/conversations`);
+        }
+      } catch (error) {
+        console.log("Error: ", error);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [router]
+  );
 
   return (
     <div className={`mt-8 sm:mx-auto sm:w-full sm:max-w-md`}>
