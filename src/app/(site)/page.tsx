@@ -1,8 +1,17 @@
 import Image from "next/image";
 import AuthForm from "@/app/(site)/AuthForm";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
   // TODO: 인증 상태에 따라 로그인/회원가입 페이지를 보여주거나, 메인 페이지로 이동시키기
+
+  const session = await getServerSession(authOptions);
+
+  if (session) {
+    return redirect("/users");
+  }
 
   return (
     <main

@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Nanum_Gothic } from "next/font/google";
 import ToasterProvider from "@/provider/ToasterProvider";
+import AuthProvider from "@/provider/AuthProvider";
 
 const NanumGothic = Nanum_Gothic({
   weight: ["400", "700"],
@@ -23,8 +24,10 @@ export default function RootLayout({
       {/* TODO: 폰트 로드 문제 있음.......*/}
       {/*<body className={`font-nanum-gothic ${NanumGothic.className}`}>*/}
       <body className={``}>
-        <ToasterProvider />
-        {children}
+        <AuthProvider>
+          <ToasterProvider />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
