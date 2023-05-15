@@ -3,6 +3,16 @@
 > A simple messenger app built with Next.js
 
 
+## Stack
+
+- Next.js
+- NextAuth.js
+- Tailwind CSS
+- Cloudinary
+- Pusher
+- MongoDB
+- Prisma
+
 ## Install
 
 ```sh
@@ -33,3 +43,4 @@ GITHUB_SECRET=
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 ```
+

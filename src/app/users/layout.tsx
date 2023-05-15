@@ -1,9 +1,14 @@
-import React from "react";
+import Sidebar from "@/components/sidebar/Sidebar";
 
 export default function UserLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      <Sidebar />
+      {children}
+    </>
+  );
 }
