@@ -7,6 +7,7 @@ export default function UserLayout({
 }) {
   return (
     <>
+      {/* @ts-expect-error Server Component */}
       <Sidebar />
       {children}
     </>

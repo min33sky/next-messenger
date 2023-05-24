@@ -44,3 +44,15 @@ GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 ```
 
+
+
+## Note
+
+1. 비동기 컴포넌트 사용 시 타입에러 해결하기
+
+```tsx
+<div>
+  {/* @ts-expect-error Server Component */}
+  <AsyncComponent />
+</div>
+```
