@@ -2,7 +2,7 @@
 
 import useRoutes from "@/hooks/useRoutes";
 import useConversation from "@/hooks/useConversation";
-import MobileItem from "@/components/sidebar/MobileItem";
+import MobileItem from "@/components/wrapper/MobileItem";
 
 export default function MobileFooter() {
   const routes = useRoutes();
