@@ -3,6 +3,7 @@ import { prisma } from "@/libs/db";
 
 /**
  * Get all conversations of current user
+ * @description 현재 사용자의 모든 대화를 가져옵니다
  */
 export default async function getConversations() {
   const currentUser = await getCurrentUser();

@@ -1,7 +1,7 @@
 import getUsers from "@/actions/getUsers";
 import Wrapper from "@/components/wrapper/Wrapper";
 import getConversations from "@/actions/getConversations";
-import ConversationList from "@/app/conversations/(components)/ConversationList";
+import ConversationList from "@/app/conversations/components/ConversationList";
 
 export default async function ConversationsLayout({
   children,

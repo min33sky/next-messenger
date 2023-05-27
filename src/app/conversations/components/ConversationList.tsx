@@ -7,8 +7,8 @@ import { useSession } from "next-auth/react";
 import useConversation from "@/hooks/useConversation";
 import clsx from "clsx";
 import { MdOutlineGroupAdd } from "react-icons/md";
-import ConversationBox from "@/app/conversations/(components)/ConversationBox";
 import { User } from "@prisma/client";
+import ConversationBox from "@/app/conversations/components/ConversationBox";
 
 interface ConversationListProps {
   initialItems: FullConversationType[];
