@@ -26,19 +26,19 @@ export default function Form() {
 
     console.log("data: ", data, conversationId);
 
-    // axios.post("/api/messages", {
-    //   ...data,
-    //   conversationId: conversationId,
-    // });
+    axios.post("/api/messages", {
+      ...data,
+      conversationId,
+    });
   };
 
   const handleUpload = (result: any) => {
     // TODO: 이미지 업로드
     console.log("이미지 업로드", result.info.secure_url);
-    // axios.post("/api/messages", {
-    //   image: result.info.secure_url,
-    //   conversationId: conversationId,
-    // });
+    axios.post("/api/messages", {
+      image: result.info.secure_url,
+      conversationId,
+    });
   };
 
   return (
@@ -46,7 +46,7 @@ export default function Form() {
       <CldUploadButton
         options={{ maxFiles: 1 }}
         onUpload={handleUpload}
-        uploadPreset="pgc9ehd5"
+        uploadPreset="tmkt1ddt"
       >
         <HiPhoto size={30} className="text-sky-500" />
       </CldUploadButton>

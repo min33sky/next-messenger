@@ -14,6 +14,11 @@ interface ConversationBoxProps {
   selected?: boolean;
 }
 
+/**
+ * 채팅방 박스 컴포넌트
+ * @param data 채팅 내용
+ * @param selected 현재 활성화된 채팅방인지 유무
+ */
 export default function ConversationBox({
   data,
   selected,
@@ -51,16 +56,19 @@ export default function ConversationBox({
     return seenArray.filter((user) => user.email === userEmail).length !== 0;
   }, [userEmail, lastMessage]);
 
+  /**
+   * 가장 최신 메세지 표시하기
+   */
   const lastMessageText = useMemo(() => {
     if (lastMessage?.image) {
-      return "Sent an image";
+      return "이미지를 전송했습니다.";
     }
 
     if (lastMessage?.body) {
       return lastMessage?.body;
     }
 
-    return "Started a conversation";
+    return "대화를 시작하세요.";
   }, [lastMessage]);
 
   return (
