@@ -3,6 +3,10 @@ import { useMemo } from "react";
 import { User } from "@prisma/client";
 import type { FullConversationType } from "@/types/message";
 
+/**
+ * Returns the other user in a conversation
+ * @param conversation
+ */
 export default function useOtherUser(
   conversation: FullConversationType | { users: User[] }
 ) {

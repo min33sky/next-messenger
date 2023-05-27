@@ -16,6 +16,9 @@ interface ConversationListProps {
   title?: string;
 }
 
+/**
+ * 채팅방 목록
+ */
 export default function ConversationList({
   initialItems,
   title,
@@ -28,6 +31,11 @@ export default function ConversationList({
   const session = useSession();
 
   const { conversationId, isOpen } = useConversation();
+
+  console.log(
+    `%c conversationId : ${conversationId || "None"} `,
+    "color: #ff0000; font-size: 16px;"
+  );
 
   // const pusherKey = useMemo(() => {
   //   return session.data?.user?.email;
@@ -85,18 +93,7 @@ export default function ConversationList({
       {/*/>*/}
       <aside
         className={clsx(
-          `
-        fixed 
-        inset-y-0 
-        overflow-y-auto
-        border-r
-        border-gray-200 
-        pb-20 
-        lg:left-20
-        lg:block 
-        lg:w-80 
-        lg:pb-0 
-      `,
+          `fixed inset-y-0 overflow-y-auto border-r border-gray-200 pb-20 lg:left-20 lg:block lg:w-80 lg:pb-0`,
           isOpen ? "hidden" : "left-0 block w-full"
         )}
       >
@@ -105,19 +102,12 @@ export default function ConversationList({
             <div className="text-2xl font-bold text-neutral-800">Messages</div>
             <div
               onClick={() => setIsModalOpen(true)}
-              className="
-                cursor-pointer
-                rounded-full
-                bg-gray-100
-                p-2
-                text-gray-600
-                transition
-                hover:opacity-75
-              "
+              className="cursor-pointer rounded-full bg-gray-100 p-2 text-gray-600 transition hover:opacity-75"
             >
               <MdOutlineGroupAdd size={20} />
             </div>
           </div>
+
           {items.map((item) => (
             <ConversationBox
               key={item.id}

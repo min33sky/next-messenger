@@ -4,6 +4,9 @@ import clsx from "clsx";
 import EmptyState from "@/components/EmptyState";
 import useConversation from "@/hooks/useConversation";
 
+/**
+ * 채팅방 페이지
+ */
 export default function ConversationsPage() {
   const { isOpen } = useConversation();
 

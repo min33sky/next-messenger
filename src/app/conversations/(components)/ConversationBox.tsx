@@ -67,22 +67,12 @@ export default function ConversationBox({
     <div
       onClick={handleClick}
       className={clsx(
-        `
-        relative 
-        flex 
-        w-full 
-        cursor-pointer 
-        items-center 
-        space-x-3 
-        rounded-lg
-        p-3
-        transition
-        hover:bg-neutral-100
-        `,
+        `relative flex w-full cursor-pointer items-center space-x-3 rounded-lg p-3 transition hover:bg-neutral-100`,
         selected ? "bg-neutral-100" : "bg-white"
       )}
     >
       {data.isGroup ? (
+        // TODO: 아바타 그룹 컴포넌트 구현
         // <AvatarGroup users={data.users} />
         <div>아바타 그룹 컴포넌트 구현</div>
       ) : (
@@ -96,23 +86,14 @@ export default function ConversationBox({
               {data.name || otherUser.name}sidebar
             </p>
             {lastMessage?.createdAt && (
-              <p
-                className="
-                  text-xs
-                  font-light
-                  text-gray-400
-                "
-              >
+              <p className="text-xs font-light text-gray-400">
                 {format(new Date(lastMessage.createdAt), "p")}
               </p>
             )}
           </div>
           <p
             className={clsx(
-              `
-              truncate 
-              text-sm
-              `,
+              `truncate text-sm`,
               hasSeen ? "text-gray-500" : "font-medium text-black"
             )}
           >
