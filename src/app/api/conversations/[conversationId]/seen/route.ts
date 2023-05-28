@@ -2,16 +2,16 @@ import getCurrentUser from "@/actions/getCurrentUser";
 import { NextResponse } from "next/server";
 import { prisma } from "@/libs/db";
 
-export async function POST(
-  request: Request,
-  {
-    params,
-  }: {
-    params: {
-      conversationId?: string;
-    };
-  }
-) {
+interface SeenProps {
+  params: {
+    conversationId?: string;
+  };
+}
+
+export async function POST(request: Request, { params }: SeenProps) {
+  /**
+   ** 메세지를 확인했다고 표시하는 API
+   */
   try {
     const currentUser = await getCurrentUser();
     const { conversationId } = params;
@@ -23,7 +23,7 @@ export async function POST(
       );
     }
 
-    // Find existing conversation
+    //? 존재하는 채팅방 찾기
     const conversation = await prisma.conversation.findUnique({
       where: {
         id: conversationId,
@@ -39,11 +39,12 @@ export async function POST(
     });
 
     if (!conversation) {
-      return new NextResponse("Invalid ID", { status: 400 });
+      return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
     }
 
-    // Find last message
-    const lastMessage = conversation.messages[conversation.messages.length - 1];
+    //? 채팅방의 마지막 메세지 가져오기
+    // const lastMessage = conversation.messages[conversation.messages.length - 1];
+    const lastMessage = conversation.messages.at(-1);
 
     if (!lastMessage) {
       return NextResponse.json(conversation);
@@ -85,12 +86,8 @@ export async function POST(
   } catch (error) {
     console.log(error);
     return NextResponse.json(
-      {
-        error: "Something went wrong",
-      },
-      {
-        status: 500,
-      }
+      { error: "Something went wrong" },
+      { status: 500 }
     );
   }
 }
